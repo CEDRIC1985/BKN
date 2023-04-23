@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="/New-York-City.jpg">
+    <style>*{
+        box-sizing: border-box;
+        /* border: 1px solid red; */
+        padding: 0;
+        margin: 0;
+        font-size: 16px;
+        font-family: 'Roboto', sans-serif;
+        }
+        body{
+            background-color: #060714;
+            color: rgba(255, 255, 255, 1)
+        }
+        h1{
+            font-size: 3rem;
+            font-weight: 700;
+            text-transform: capitalize;
+        }
+        h2{
+            margin-bottom: 40px;
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            color: #FFFFFF;
+        }
+        h3{
+            font-size: 1rem;
+            text-align: center;
+        }
+        a{
+            color: rgba(255, 255, 255, 1);
+            text-decoration: none;
+        }
+        .button{
+            background: #B21515;
+            border: none;
+            border-radius: 4px;
+            padding: 0.5rem 1rem;
+            color: #ffffff;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .hamburger{
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            height: 20px;
+            width: 30px;
+            border: none;
+            background-color: transparent;
+        }
+        .hamburger__line-top,
+        .hamburger__line-mid,
+        .hamburger__line-bot{
+            position: absolute;
+            top: 50%;
+            width: 30px;
+            height: 1px;
+            background-color: rgba(255, 255, 255, 1);
+            transition: 1s .2s cubic-bezier(0.075, 0.82, 0.165, 1);  
+        }
+        .hamburger__line-top{
+            top: 0;
+            transition: 1s .2s cubic-bezier(0.075, 0.82, 0.165, 1);
+        }
+        .hamburger__line-bot{
+            top: 100%;
+            transition: 1s .2s cubic-bezier(0.075, 0.82, 0.165, 1);
+        }
+        .hamburger__line-mid--active{
+            background-color: rgba(255, 255, 255, 0);  
+            transition: 1s .2s cubic-bezier(0.075, 0.82, 0.165, 1);
+        }
+        .hamburger__line-top--active{
+            top:50%;
+            transform: rotate(-45deg);
+        }
+        .hamburger__line-bot--active{
+            top: 50%;
+            transform: rotate(-135deg);
+        }
+        
+        /* MOBILE-MENU */
+        .mobile-menu{
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 9;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 1rem;
+            background-color:#060714 ;
+            transition: .5s all ease-in-out;
+            transform: translateX(100%);
+        }
+        .mobile-menu--active{
+            opacity: 1;
+            transform: translateX(0)
+        }
+        .mobile-menu__list{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            list-style: none;
+            height: 70%;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+        .mobile-menu__item{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex:1;
+            width: 100%;
+            text-align: center;
+        }
+        .mobile-menu__link{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            font-size: 1rem;
+            font-weight: 300;
+            text-transform: uppercase;
+            transition: 0.5s all cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .mobile-menu__link:hover{
+            background-color: #B21515;
+        }
+        .mobile-menu__details-cntr{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .mobile__detail{
+            font-weight: 300;
+            margin-bottom: 5px;
+        }
+        
+        /* NAVIGATION */
+        /* top-bar */
+        .top-bar{
+            position: relative;
+            display: flex; 
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 32px 0px 32px ;
+        }
+        .top-bar__logo{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .top-bar__brnd-name-ctnr{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            margin-left: 20px ;
+        }
+        .top-bar__brnd-name{
+            position:relative;
+            font-size: 1.2rem;
+            font-style: normal;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-align: center;
+        }
+        .top-bar__brnd-description{
+            margin-left: 0.7em;
+            background-color: red;
+            background-image: linear-gradient(180deg, #E23636 0%, #9B0B0B 100%);
+            background-size: 100%;
+            background-repeat: repeat;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; 
+            -moz-background-clip: text;
+            -moz-text-fill-color: transparent;
+            font-size: 7px;
+            letter-spacing: 0.7em;
+            line-height: 24px;
+            font-weight: bold;
+            text-align: center;
+            text-transform: uppercase;
+        }
+        
+        /* HERO */
+        .hero{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 50vh;
+            padding: 0 15%;
+        }
+        .hero__brnd-name{
+            font-size: 3rem;
+            font-style: normal;
+            font-weight: bold;
+            text-transform: capitalize;
+            text-align: center;
+        }
+        .hero__brnd-description{
+            margin-left: 0.7em;
+            margin-bottom: 2rem;
+            background-color: red;
+            background-image: linear-gradient(180deg, #E23636 0%, #9B0B0B 100%);
+            background-size: 100%;
+            background-repeat: repeat;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; 
+            -moz-background-clip: text;
+            -moz-text-fill-color: transparent;
+            font-weight: bold;
+            font-size: 1rem;
+            line-height: 1rem;
+            text-align: center;
+            letter-spacing: 0.7em;
+            text-transform: uppercase;
+        }
+        .hero__brnd-slogan{
+            font-weight: 700;
+            text-align: center;
+            text-transform: uppercase;
+            line-height: 1rem;
+        }
+        
+        /* BOOKING */
+        .booking{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 50vh;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .booking__ctnr{
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .booking__img{
+            height: 100%;
+            width: 100%;
+            mix-blend-mode: luminosity;
+        }
+        .booking__text-ctnr{
+            position: absolute;
+        }
+        
+        /* ABOUT */
+        .about{
+            height: 100%;
+            margin:  3.5rem 3rem 0 3rem;
+            text-align: center;
+        }
+        .about__text{
+            font-size: 1rem;
+            font-weight: 400;
+        }
+        .about__features{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 60%;
+            margin: 10%;
+        }
+        .about__feature{
+            margin-bottom: 1.5rem;
+        }
+        .about__feature-img{
+            margin-bottom: 30px;
+        }
+        .about__feature-txt{
+            font-weight: 700;
+            text-transform: capitalize;
+            white-space: pre;
+        }
+        
+        /* OPINIONS */
+        .opinions{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20%;
+            overflow: hidden;
+        }
+        .opinions__user-cards{
+            display: grid;
+            grid-template-columns: repeat(5, auto);
+            grid-gap: 1.5rem 1.5rem;
+            justify-self: center;
+            overflow: hidden;
+        }
+        .opinions__user{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 300px;
+            min-height: 150px;
+            min-width: 150px;
+        }
+        .opinions__user-img-cntr{
+            /* height: 300px;
+            width: 300px; */
+            min-height: 150px;
+            min-width: 150px;
+        }
+        .opinions__user-img{
+            height: 100%;
+            width: 100%;
+        }
+        .opinions__txt-cntr{
+            display:flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+        .opinions__txt-content{
+            font-size: 1rem;
+            margin: 10px;
+            font-weight: 200;
+            text-align: center;
+        }
+        
+        
+        /* SERVICES */
+        .services{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        .services__single-serv-cards{
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-gap: 1rem 1rem;
+            justify-self: center;
+        }
+        .services__single-serv{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 180px;
+            width: 180px;
+            background-image: url(Rectangle\ 120.png);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .services__single-serv-img-cntr{
+            width: 100%;
+        }
+        .services__single-serv-img{
+            height: 180px;
+            width: 180px;
+        }
+        .services__single-serv-descr{
+            font-size: 1rem;
+            text-transform: capitalize;
+        }
+        .services__txt-cntr{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+        .services__txt-content{
+            margin: 10px;
+            font-weight: 200;
+            text-align: center;
+        }
+        
+        /* CONTACT */
+        .contact{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 70vh;
+            background-image: url(contact-bg.png);
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .contact__title{
+            text-transform: capitalize;
+        }
+        .contact__text-ctnr{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+        }
+        .contact__detail{
+            margin-bottom: 10px;
+        }
+        
+        /* ----------------MQ----------------- */
+        @media (min-width: 600px){
+            *{
+                font-size: 24px;
+            }
+            .about{
+                margin: 4rem 1rem 0 1rem;
+        
+            }
+            .about__features{
+                flex-direction: row;
+            }
+        
+        }
+        @media (min-width: 1000px ){
+            *{
+                font-size: 32px;
+            }
+            /* ABOUT */
+            .about{
+                margin: 4rem 1rem 4rem 1rem;
+        
+            }
+            .about__features{
+                flex-direction: row;
+            }
+            /*OPINIONS*/
+            .opinions__txt-content{
+                font-size: 0.7rem;
+            }
+            .opinions__signature{
+                font-size: 0.7rem;
+            }
+            .opinions__company{
+                font-size: 0.7rem;
+            }
+        }
+        @media (min-width: 1600px){
+            .opinions__user-cards{
+                grid-template-columns: repeat(3, auto);
+          
+            }
+        }</style>
+    <title>
+      AutoserviceFelix
+    </title>
+  </head>
+  <body>
+    <nav class="top-bar">
+      <a href="index.html">
+        <div class="top-bar__logo">
+          <div class="top-bar__brnd-img">
+              <svg
+                width="70px"
+                height="70px"
+                viewBox="0 0 31 34"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <mask id="path-1-inside-1" fill="white">
+                  
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M26.0803 17.242L23.1687 13.3156C22.5656 13.1941 21.9755 12.9845 21.4184 12.6857L11.6435 23.7501C12.009 24.2663 12.2898 24.8264 12.4848 25.4103L16.7396 27.8152L11.9658 30.6299C11.7545 30.9968 11.5034 31.3482 11.2121 31.6778C9.58288 33.522 7.12722 34.203 4.89211 33.6561L7.51274 30.6898L7.49032 28.2375L5.2513 26.2594L2.83777 26.3197L0.272956 29.2228C0.00741873 28.303 -0.0492282 27.3326 0.107741 26.3879L0 26.3905L0.165079 26.0874C0.388507 25.0518 0.872691 24.0575 1.62399 23.2071C1.70887 23.1111 1.796 23.0181 1.88522 22.9284L5.10938 17.0073L7.64985 21.1642C7.94841 21.2225 8.24391 21.3023 8.5339 21.4038L18.7066 9.88916C18.5701 9.61391 18.4545 9.33052 18.3598 9.04143L13.9212 7.0327L19.3997 3.10313C19.4778 3.00348 19.5593 2.90552 19.6442 2.8094C20.3955 1.95896 21.3226 1.35587 22.3228 1.0065L22.603 0.805518L22.6136 0.912652C23.5315 0.640441 24.5014 0.576965 25.4467 0.726949L22.8824 3.62958L23.1201 6.03205L25.3602 8.01111L27.7945 7.73127L30.4162 4.76381C31.2347 6.91459 30.8617 9.43578 29.2323 11.2801C28.941 11.6099 28.6232 11.9025 28.285 12.1575L26.0803 17.242ZM25.294 13.3084C25.735 14.4812 25.9762 15.7518 25.9762 17.0788C25.9762 22.9968 21.1787 27.7942 15.2607 27.7942C14.3967 27.7942 13.5567 27.692 12.7519 27.4989C12.6005 27.7514 12.4239 27.9937 12.222 28.2223C10.9829 29.6248 9.11524 30.1427 7.41538 29.7267L9.40844 27.4707L9.39543 26.0479C8.56987 25.507 7.82353 24.8551 7.17757 24.1135L5.85368 24.1466L3.90262 26.355C3.70065 25.6553 3.65763 24.9171 3.77715 24.1984L3.69491 24.2005L3.82103 23.9689C3.99112 23.182 4.35921 22.4265 4.93014 21.7803C4.99427 21.7077 5.06009 21.6374 5.12749 21.5696L5.35015 21.1607C4.83142 19.9026 4.54528 18.5241 4.54528 17.0788C4.54528 11.1608 9.34274 6.36337 15.2607 6.36337C16.2429 6.36337 17.1943 6.49552 18.098 6.74302L18.4468 6.49283C18.5067 6.41625 18.5693 6.34099 18.6345 6.26715C19.2066 5.61962 19.9126 5.16065 20.6743 4.89509L20.8853 4.74373L20.8933 4.8245C21.5913 4.6176 22.3288 4.5694 23.0476 4.68348L21.0977 6.89057L21.2248 8.17523C22.0571 8.73384 22.8067 9.40605 23.4515 10.1697L24.8326 10.0109L26.8267 7.75371C27.4492 9.38934 27.1655 11.3066 25.9263 12.7092C25.7303 12.9311 25.5184 13.1309 25.294 13.3084Z"
+                  />
+                </mask>
+                <path
+                  d="M23.1687 13.3156L24.0523 12.6604L23.8005 12.3208L23.386 12.2372L23.1687 13.3156ZM26.0803 17.242L25.1967 17.8972L26.3315 19.4276L27.0895 17.6796L26.0803 17.242ZM21.4184 12.6857L21.9384 11.7164L21.1708 11.3046L20.5941 11.9574L21.4184 12.6857ZM11.6435 23.7501L10.8192 23.0218L10.2424 23.6746L10.7457 24.3856L11.6435 23.7501ZM12.4848 25.4103L11.4414 25.7587L11.5754 26.1598L11.9435 26.3679L12.4848 25.4103ZM16.7396 27.8152L17.2983 28.7628L18.9395 27.7951L17.2809 26.8576L16.7396 27.8152ZM11.9658 30.6299L11.4072 29.6823L11.1573 29.8296L11.0126 30.0809L11.9658 30.6299ZM11.2121 31.6778L12.0365 32.4061H12.0365L11.2121 31.6778ZM4.89211 33.6561L4.06774 32.9278L2.86257 34.292L4.63068 34.7246L4.89211 33.6561ZM7.51274 30.6898L8.33711 31.4181L8.61655 31.1018L8.61269 30.6798L7.51274 30.6898ZM7.49032 28.2375L8.59027 28.2274L8.58579 27.7375L8.21862 27.4131L7.49032 28.2375ZM5.2513 26.2594L5.97959 25.435L5.65578 25.1489L5.22383 25.1597L5.2513 26.2594ZM2.83777 26.3197L2.8103 25.22L2.3309 25.232L2.0134 25.5914L2.83777 26.3197ZM0.272956 29.2228L-0.783886 29.5279L-0.228476 31.4518L1.09733 29.9511L0.272956 29.2228ZM0.107741 26.3879L1.19286 26.5682L1.41106 25.255L0.0802801 25.2882L0.107741 26.3879ZM0 26.3905L-0.966065 25.8645L-1.87719 27.5378L0.0274613 27.4902L0 26.3905ZM0.165079 26.0874L1.13114 26.6134L1.20692 26.4743L1.24034 26.3194L0.165079 26.0874ZM1.62399 23.2071L0.799617 22.4788H0.799617L1.62399 23.2071ZM1.88522 22.9284L2.66536 23.7039L2.77614 23.5924L2.85129 23.4544L1.88522 22.9284ZM5.10938 17.0073L6.04798 16.4337L5.05444 14.808L4.14331 16.4812L5.10938 17.0073ZM7.64985 21.1642L6.71125 21.7378L6.96378 22.151L7.43908 22.2438L7.64985 21.1642ZM8.5339 21.4038L8.17053 22.442L8.8686 22.6863L9.35827 22.1321L8.5339 21.4038ZM18.7066 9.88916L19.531 10.6175L20.0206 10.0632L19.6921 9.40053L18.7066 9.88916ZM18.3598 9.04143L19.4052 8.69913L19.2545 8.23893L18.8133 8.03928L18.3598 9.04143ZM13.9212 7.0327L13.28 6.13885L11.7318 7.24931L13.4676 8.03485L13.9212 7.0327ZM19.3997 3.10313L20.0408 3.99698L20.1685 3.90538L20.2654 3.78169L19.3997 3.10313ZM19.6442 2.8094L20.4686 3.5377L20.4686 3.5377L19.6442 2.8094ZM22.3228 1.0065L22.6855 2.04496L22.8351 1.9927L22.9639 1.90034L22.3228 1.0065ZM22.603 0.805518L23.6976 0.697205L23.51 -1.19878L21.9618 -0.0883262L22.603 0.805518ZM22.6136 0.912652L21.5189 1.02097L21.65 2.34573L22.9263 1.96726L22.6136 0.912652ZM25.4467 0.726949L26.2711 1.45525L27.5971 -0.0456481L25.6191 -0.359463L25.4467 0.726949ZM22.8824 3.62958L22.058 2.90128L21.7405 3.26067L21.7877 3.73789L22.8824 3.62958ZM23.1201 6.03205L22.0254 6.14036L22.068 6.57034L22.3918 6.85642L23.1201 6.03205ZM25.3602 8.01111L24.6319 8.83548L24.9991 9.15987L25.4858 9.10391L25.3602 8.01111ZM27.7945 7.73127L27.9202 8.82408L28.3395 8.77588L28.6189 8.45957L27.7945 7.73127ZM30.4162 4.76381L31.4442 4.37254L30.7968 2.67152L29.5918 4.03552L30.4162 4.76381ZM29.2323 11.2801L30.0567 12.0084L30.0567 12.0084L29.2323 11.2801ZM28.285 12.1575L27.6228 11.2792L27.3912 11.4538L27.2758 11.7199L28.285 12.1575ZM25.9762 17.0788H24.8762H25.9762ZM25.294 13.3084L24.6117 12.4455L23.9817 12.9437L24.2644 13.6955L25.294 13.3084ZM15.2607 27.7942L15.2607 28.8942L15.2607 27.7942ZM12.7519 27.4989L13.0085 26.4293L12.2236 26.241L11.8085 26.9332L12.7519 27.4989ZM12.222 28.2223L11.3976 27.494L11.3976 27.494L12.222 28.2223ZM7.41538 29.7267L6.59101 28.9984L5.38589 30.3625L7.1539 30.7952L7.41538 29.7267ZM9.40844 27.4707L10.2328 28.199L10.5123 27.8827L10.5084 27.4607L9.40844 27.4707ZM9.39543 26.0479L10.4954 26.0379L10.49 25.4501L9.99832 25.1279L9.39543 26.0479ZM7.17757 24.1135L8.00704 23.391L7.66726 23.0009L7.1501 23.0138L7.17757 24.1135ZM5.85368 24.1466L5.82622 23.0469L5.34682 23.0589L5.02931 23.4183L5.85368 24.1466ZM3.90262 26.355L2.84576 26.6601L3.40112 28.5841L4.72698 27.0833L3.90262 26.355ZM3.77715 24.1984L4.86225 24.3789L5.08069 23.0655L3.74968 23.0988L3.77715 24.1984ZM3.69491 24.2005L2.72885 23.6744L1.8177 25.3477L3.72239 25.3001L3.69491 24.2005ZM3.82103 23.9689L4.78709 24.4949L4.86276 24.3559L4.89619 24.2013L3.82103 23.9689ZM4.93014 21.7803L4.10577 21.052L4.10577 21.052L4.93014 21.7803ZM5.12749 21.5696L5.90792 22.3448L6.01851 22.2334L6.09355 22.0956L5.12749 21.5696ZM5.35015 21.1607L6.31621 21.6867L6.56699 21.2262L6.3671 20.7414L5.35015 21.1607ZM4.54528 17.0788L5.64528 17.0788V17.0788H4.54528ZM15.2607 6.36337V5.26337V6.36337ZM18.098 6.74302L17.8074 7.80395L18.313 7.94244L18.7391 7.63686L18.098 6.74302ZM18.4468 6.49283L19.0879 7.38667L19.2159 7.29488L19.3129 7.17088L18.4468 6.49283ZM18.6345 6.26715L19.4589 6.99545L19.4589 6.99545L18.6345 6.26715ZM20.6743 4.89509L21.0364 5.93377L21.1864 5.88149L21.3154 5.78893L20.6743 4.89509ZM20.8853 4.74373L21.98 4.63542L21.7924 2.73942L20.2442 3.84988L20.8853 4.74373ZM20.8933 4.8245L19.7987 4.9328L19.9297 6.25741L21.2059 5.87914L20.8933 4.8245ZM23.0476 4.68348L23.872 5.41177L25.1979 3.91097L23.22 3.59707L23.0476 4.68348ZM21.0977 6.89057L20.2734 6.16227L19.9559 6.52166L20.0031 6.99888L21.0977 6.89057ZM21.2248 8.17523L20.1302 8.28354L20.1813 8.79959L20.6118 9.08858L21.2248 8.17523ZM23.4515 10.1697L22.6111 10.8793L22.9914 11.3298L23.5771 11.2625L23.4515 10.1697ZM24.8326 10.0109L24.9582 11.1037L25.3775 11.0555L25.657 10.7392L24.8326 10.0109ZM26.8267 7.75371L27.8548 7.36248L27.2075 5.66134L26.0024 7.02541L26.8267 7.75371ZM25.9263 12.7092L25.102 11.9809L25.102 11.9809L25.9263 12.7092ZM22.2852 13.9708L25.1967 17.8972L26.9639 16.5868L24.0523 12.6604L22.2852 13.9708ZM20.8984 13.655C21.5521 14.0057 22.2444 14.2515 22.9515 14.3939L23.386 12.2372C22.8868 12.1367 22.3988 11.9633 21.9384 11.7164L20.8984 13.655ZM20.5941 11.9574L10.8192 23.0218L12.4679 24.4783L22.2428 13.414L20.5941 11.9574ZM10.7457 24.3856C11.0478 24.8123 11.28 25.2754 11.4414 25.7587L13.5281 25.0619C13.2996 24.3774 12.9702 23.7203 12.5413 23.1145L10.7457 24.3856ZM11.9435 26.3679L16.1983 28.7729L17.2809 26.8576L13.026 24.4527L11.9435 26.3679ZM16.1809 26.8677L11.4072 29.6823L12.5245 31.5774L17.2983 28.7628L16.1809 26.8677ZM11.0126 30.0809C10.8379 30.3843 10.6299 30.6755 10.3877 30.9496L12.0365 32.4061C12.3769 32.0208 12.6711 31.6094 12.9191 31.1789L11.0126 30.0809ZM10.3877 30.9496C9.03969 32.4754 7.00736 33.0413 5.15355 32.5877L4.63068 34.7246C7.24709 35.3648 10.1261 34.5686 12.0365 32.4061L10.3877 30.9496ZM5.71648 34.3844L8.33711 31.4181L6.68837 29.9615L4.06774 32.9278L5.71648 34.3844ZM8.61269 30.6798L8.59027 28.2274L6.39037 28.2475L6.41279 30.6999L8.61269 30.6798ZM8.21862 27.4131L5.97959 25.435L4.523 27.0837L6.76202 29.0618L8.21862 27.4131ZM5.22383 25.1597L2.8103 25.22L2.86523 27.4193L5.27876 27.359L5.22383 25.1597ZM2.0134 25.5914L-0.551414 28.4945L1.09733 29.9511L3.66214 27.048L2.0134 25.5914ZM1.3298 28.9177C1.10976 28.1555 1.0628 27.3509 1.19286 26.5682L-0.977382 26.2076C-1.16126 27.3142 -1.09492 28.4505 -0.783886 29.5279L1.3298 28.9177ZM0.0802801 25.2882L-0.0274613 25.2909L0.0274613 27.4902L0.135203 27.4875L0.0802801 25.2882ZM0.966065 26.9166L1.13114 26.6134L-0.800986 25.5613L-0.966065 25.8645L0.966065 26.9166ZM1.24034 26.3194C1.42505 25.4633 1.82501 24.641 2.44835 23.9354L0.799617 22.4788C-0.0796305 23.4741 -0.648039 24.6404 -0.910178 25.8554L1.24034 26.3194ZM2.44835 23.9354C2.51896 23.8555 2.59133 23.7783 2.66536 23.7039L1.10509 22.1529C1.00066 22.2579 0.898785 22.3666 0.799617 22.4788L2.44835 23.9354ZM2.85129 23.4544L6.07544 17.5333L4.14331 16.4812L0.91916 22.4023L2.85129 23.4544ZM4.17078 17.5809L6.71125 21.7378L8.58844 20.5906L6.04798 16.4337L4.17078 17.5809ZM7.43908 22.2438C7.68626 22.2921 7.93075 22.3581 8.17053 22.442L8.89727 20.3655C8.55708 20.2465 8.21056 20.1529 7.86061 20.0846L7.43908 22.2438ZM9.35827 22.1321L19.531 10.6175L17.8822 9.16087L7.70953 20.6755L9.35827 22.1321ZM17.3144 9.38373C17.4254 9.72258 17.561 10.0549 17.7211 10.3778L19.6921 9.40053C19.5793 9.17293 19.4836 8.93847 19.4052 8.69913L17.3144 9.38373ZM13.4676 8.03485L17.9063 10.0436L18.8133 8.03928L14.3747 6.03054L13.4676 8.03485ZM18.7586 2.20929L13.28 6.13885L14.5623 7.92654L20.0408 3.99698L18.7586 2.20929ZM18.8198 2.0811C18.7206 2.1934 18.6253 2.30795 18.5339 2.42457L20.2654 3.78169C20.3303 3.69901 20.398 3.61764 20.4686 3.5377L18.8198 2.0811ZM21.96 -0.0319659C20.7866 0.377943 19.6991 1.08583 18.8198 2.0811L20.4686 3.5377C21.092 2.83209 21.8587 2.3338 22.6855 2.04496L21.96 -0.0319659ZM21.9618 -0.0883262L21.6816 0.112652L22.9639 1.90034L23.2441 1.69936L21.9618 -0.0883262ZM23.7082 0.804338L23.6976 0.697205L21.5083 0.913832L21.5189 1.02097L23.7082 0.804338ZM25.6191 -0.359463C24.5118 -0.535147 23.3762 -0.460831 22.3008 -0.141958L22.9263 1.96726C23.6869 1.74171 24.491 1.68908 25.2744 1.81336L25.6191 -0.359463ZM23.7068 4.35788L26.2711 1.45525L24.6224 -0.00134683L22.058 2.90128L23.7068 4.35788ZM24.2148 5.92374L23.977 3.52127L21.7877 3.73789L22.0254 6.14036L24.2148 5.92374ZM26.0885 7.18674L23.8484 5.20768L22.3918 6.85642L24.6319 8.83548L26.0885 7.18674ZM27.6689 6.63847L25.2346 6.91831L25.4858 9.10391L27.9202 8.82408L27.6689 6.63847ZM29.5918 4.03552L26.9702 7.00298L28.6189 8.45957L31.2405 5.49211L29.5918 4.03552ZM30.0567 12.0084C31.9673 9.84577 32.4024 6.89023 31.4442 4.37254L29.3881 5.15509C30.067 6.93895 29.7562 9.02578 28.408 10.5518L30.0567 12.0084ZM28.9473 13.0358C29.3441 12.7366 29.7162 12.3938 30.0567 12.0084L28.408 10.5518C28.1658 10.826 27.9024 11.0683 27.6228 11.2792L28.9473 13.0358ZM27.0895 17.6796L29.2942 12.5951L27.2758 11.7199L25.0711 16.8044L27.0895 17.6796ZM27.0762 17.0788C27.0762 15.6176 26.8104 14.216 26.3236 12.9213L24.2644 13.6955C24.6595 14.7465 24.8762 15.8861 24.8762 17.0788H27.0762ZM15.2607 28.8942C21.7862 28.8942 27.0762 23.6043 27.0762 17.0788H24.8762C24.8762 22.3893 20.5712 26.6942 15.2607 26.6942L15.2607 28.8942ZM12.4953 28.5686C13.3835 28.7817 14.3097 28.8942 15.2607 28.8942L15.2607 26.6942C14.4838 26.6942 13.7298 26.6023 13.0085 26.4293L12.4953 28.5686ZM13.0463 28.9506C13.2931 28.6713 13.5094 28.3746 13.6953 28.0646L11.8085 26.9332C11.6915 27.1283 11.5548 27.3161 11.3976 27.494L13.0463 28.9506ZM7.1539 30.7952C9.23507 31.3045 11.5261 30.6714 13.0463 28.9506L11.3976 27.494C10.4397 28.5782 8.99541 28.9809 7.67686 28.6583L7.1539 30.7952ZM8.58407 26.7424L6.59101 28.9984L8.23975 30.455L10.2328 28.199L8.58407 26.7424ZM8.29548 26.058L8.30849 27.4808L10.5084 27.4607L10.4954 26.0379L8.29548 26.058ZM6.3481 24.836C7.05992 25.6532 7.88243 26.3716 8.79254 26.968L9.99832 25.1279C9.25732 24.6423 8.58713 24.057 8.00704 23.391L6.3481 24.836ZM5.88115 25.2462L7.20504 25.2131L7.1501 23.0138L5.82622 23.0469L5.88115 25.2462ZM4.72698 27.0833L6.67805 24.8749L5.02931 23.4183L3.07825 25.6267L4.72698 27.0833ZM2.69206 24.018C2.5456 24.8986 2.59829 25.8027 2.84576 26.6601L4.95947 26.0499C4.80301 25.5079 4.76967 24.9356 4.86225 24.3789L2.69206 24.018ZM3.72239 25.3001L3.80463 25.2981L3.74968 23.0988L3.66743 23.1008L3.72239 25.3001ZM2.85496 23.4428L2.72885 23.6744L4.66097 24.7265L4.78709 24.4949L2.85496 23.4428ZM4.10577 21.052C3.40699 21.8429 2.9547 22.7703 2.74586 23.7365L4.89619 24.2013C5.02753 23.5937 5.31144 23.0101 5.75451 22.5085L4.10577 21.052ZM4.34706 20.7944C4.26457 20.8774 4.1841 20.9633 4.10577 21.052L5.7545 22.5085C5.80445 22.452 5.85562 22.3974 5.90792 22.3448L4.34706 20.7944ZM4.38409 20.6346L4.16143 21.0435L6.09355 22.0956L6.31621 21.6867L4.38409 20.6346ZM3.44528 17.0788C3.44528 18.6705 3.76059 20.1912 4.3332 21.58L6.3671 20.7414C5.90225 19.614 5.64528 18.3778 5.64528 17.0788L3.44528 17.0788ZM15.2607 5.26337C8.73523 5.26337 3.44528 10.5533 3.44528 17.0788H5.64528C5.64528 11.7683 9.95026 7.46337 15.2607 7.46337V5.26337ZM18.3885 5.68209C17.3911 5.4089 16.342 5.26337 15.2607 5.26337V7.46337C16.1439 7.46337 16.9975 7.58214 17.8074 7.80395L18.3885 5.68209ZM17.8056 5.59898L17.4568 5.84917L18.7391 7.63686L19.0879 7.38667L17.8056 5.59898ZM17.8102 5.53886C17.7305 5.62903 17.654 5.72105 17.5806 5.81478L19.3129 7.17088C19.3595 7.11145 19.4081 7.05295 19.4589 6.99545L17.8102 5.53886ZM20.3122 3.85641C19.377 4.18247 18.5103 4.74631 17.8102 5.53886L19.4589 6.99545C19.9028 6.49293 20.4483 6.13883 21.0364 5.93377L20.3122 3.85641ZM20.2442 3.84988L20.0332 4.00124L21.3154 5.78893L21.5264 5.63757L20.2442 3.84988ZM21.988 4.71619L21.98 4.63542L19.7907 4.85204L19.7987 4.9328L21.988 4.71619ZM23.22 3.59707C22.3392 3.45729 21.4361 3.51632 20.5807 3.76985L21.2059 5.87914C21.7466 5.71888 22.3183 5.68151 22.8752 5.76988L23.22 3.59707ZM21.9221 7.61887L23.872 5.41177L22.2232 3.95518L20.2734 6.16227L21.9221 7.61887ZM22.3195 8.06693L22.1924 6.78226L20.0031 6.99888L20.1302 8.28354L22.3195 8.06693ZM24.292 9.45998C23.5814 8.6185 22.7553 7.87767 21.8379 7.26189L20.6118 9.08858C21.3589 9.59001 22.032 10.1936 22.6111 10.8793L24.292 9.45998ZM24.707 8.91809L23.3259 9.07685L23.5771 11.2625L24.9582 11.1037L24.707 8.91809ZM26.0024 7.02541L24.0082 9.2826L25.657 10.7392L27.6511 8.482L26.0024 7.02541ZM26.7507 13.4375C28.271 11.7166 28.6169 9.36501 27.8548 7.36248L25.7987 8.14493C26.2815 9.41366 26.0599 10.8966 25.102 11.9809L26.7507 13.4375ZM25.9763 14.1712C26.2517 13.9534 26.5111 13.7086 26.7507 13.4375L25.102 11.9809C24.9494 12.1536 24.7851 12.3084 24.6117 12.4455L25.9763 14.1712Z"
+                  fill="white"
+                  mask="url(#path-1-inside-1)"
+                />
+              </svg>
+          </div>
+          <div class="top-bar__brnd-name-ctnr">
+            <p class="top-bar__brnd-name">Felix </p>
+            <p class="top-bar__brnd-description">autoservice</p>
+          </div>
+        </div>
+      </a>
+      
+      <div class="mobile-menu">
+        <ul class="mobile-menu__list">
+          <li class="mobile-menu__item">
+            <a href="#" class="mobile-menu__link">Homepage</a>
+          </li>
+          <li class="mobile-menu__item">
+            <a href="#" class="mobile-menu__link">booking</a>
+          </li>
+          <li class="mobile-menu__item">
+            <a href="#" class="mobile-menu__link">Diensten </a>
+          </li>
+          <li class="mobile-menu__item">
+            <a href="#" class="mobile-menu__link">opinie</a>
+          </li>
+          <li class="mobile-menu__item">
+            <a href="#" class="mobile-menu__link">Tijden</a>
+          </li>
+          <li class="mobile-menu__item">
+            <a href="#" class="mobile-menu__link">Contact</a>
+          </li>
+        </ul>
+        <div class="mobile-menu__details-cntr">
+          <span class="mobile__detail">+06- 000 000</span>
+          <span class="mobile__detail"> Contact ons;</span>
+          <span class="mobile__detail">example@sample.com</span>
+        </div>
+      </div>
+      <button class="hamburger top-bar__hamburger">
+        <div class="hamburger__line hamburger__line-top"></div>
+        <div class="hamburger__line hamburger__line-mid"></div>
+        <div class="hamburger__line hamburger__line-bot"></div>
+      </button>
+
+    </nav>
+    <section class="hero">
+      <h1 class="hero__brnd-name"> Felix</h4>
+      <p class="hero__brnd-description">autoservice</p>
+      <p class="hero__brnd-slogan"> Onze autoservice </h2>
+    </section>
+    <section class="booking">
+      <div class="booking__ctnr">
+        <img src="booking-img.png" alt="" class="booking__img">
+        <div class="booking__text-ctnr">
+          <h2 class="booking__title">Booking</h2>
+          <button class="button booking__button">Verzenden</button>
+        </div>
+      </div>
+    </section>
+    <section class="about">
+      <h2 class="about__title"> Over ons </h2>
+      <p class="about__text">
+        Felix autoservices
+      </p>
+      <p class="about__text">
+       
+      </p>
+      <div class="about__features">
+        <div class="about__feature">
+          <img src="about-icon-1.svg" alt="" class="about__feature-img">
+          <div class="about__feature-txt"> nowoczesna technologia</div>
+        </div>
+        <div class="about__feature">
+          <img src="about-icon-2.svg" alt="" class="about__feature-img">
+          <div class="about__feature-txt"> szybkie terminy</div>
+        </div>
+        <div class="about__feature">
+          <img src="about-icon-3.svg" alt="" class="about__feature-img">
+          <div class="about__feature-txt"> kompleksowe usługi</div>
+        </div>
+      </div>
+    </section>
+    <section class="opinions">
+      <h2 class="opinions__title">Onze diensten</h2>
+      <div class="opinions__user-cards">
+
+        <div class="opinions__user">
+          <div class="opinions__user-img-cntr">
+            <img src="opinions1.jpg" alt="" class="opinions__user-img">
+          </div>
+          <div class="opinions__txt-cntr">
+            <blockquote class="opinions__txt-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis laudantium earum dolorum nulla sunt soluta ad? Harum doloribus repudiandae incidunt!</blockquote>
+            <span class="opinions__signature">Marek Cukinia</span>
+            <span class="opinions__company">Google Inc.</span>
+          </div>
+        </div>
+
+        <div class="opinions__user">
+          <div class="opinions__user-img-cntr">
+            <img src="opinions1.jpg" alt="" class="opinions__user-img">
+          </div>
+          <div class="opinions__txt-cntr">
+            <blockquote class="opinions__txt-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis laudantium earum dolorum nulla sunt soluta ad? Harum doloribus repudiandae incidunt!</blockquote>
+            <span class="opinions__signature">Onderhoud </span>
+            <span class="opinions__company">Service.</span>
+          </div>
+        </div>
+
+        <div class="opinions__user">
+          <div class="opinions__user-img-cntr">
+            <img src="opinions1.jpg" alt="" class="opinions__user-img">
+          </div>
+          <div class="opinions__txt-cntr">
+            <blockquote class="opinions__txt-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis laudantium earum dolorum nulla sunt soluta ad? Harum doloribus repudiandae incidunt!</blockquote>
+            <span class="opinions__signature">Reparatie. </span>
+            <span class="opinions__company">Service </span>
+          </div>
+        </div>
+
+        <div class="opinions__user">
+          <div class="opinions__user-img-cntr">
+            <img src="opinions1.jpg" alt="" class="opinions__user-img">
+          </div>
+          <div class="opinions__txt-cntr">
+            <blockquote class="opinions__txt-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis laudantium earum dolorum nulla sunt soluta ad? Harum doloribus repudiandae incidunt!</blockquote>
+          <span class="opinions__signature">Onze diensten </span>
+            <span class="opinions__company"></span>
+          </div>
+        </div>
+
+        
+
+        <div class="opinions__user">
+          <div class="opinions__user-img-cntr">
+            <img src="opinions1.jpg" alt="" class="opinions__user-img">
+          </div>
+          <div class="opinions__txt-cntr">
+            <blockquote class="opinions__txt-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis laudantium earum dolorum nulla sunt soluta ad? Harum doloribus repudiandae incidunt!</blockquote>
+            <span class="opinions__signature"></span>
+            <span class="opinions__company"> Plaats.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="services">
+      <h5 class="services__title">
+    	
+
+
+
+
+
+
+
+ 
+
+        
+      
+        	
+        
+        
+        
+         </2>
+      <div class="services__single-serv-cards">
+
+        <div class="services__single-serv">
+          <div class="services__user-img-cntr">
+            <h3 class="services__single-serv-descr">
+              
+              
+              
+              	
+              
+              
+              
+               </h3>
+          </div>
+        </div>
+
+        <div class="services__single-serv">
+          <div class="services__user-img-cntr">
+            <h3 class="services__single-serv-descr"> </h3>
+          </div>
+        </div>
+
+        <div class="services__single-serv">
+          <div class="services__user-img-cntr">
+            <h3 class="services__single-serv-descr">	
+              
+              Maandag	
+09:00 - 18:00
+Dinsdag	
+09:00 - 18:00
+Woensdag	
+09:00 - 18:00
+Donderdag
+Vrijdag 
+09:00 - 18:00
+Zaterdag	
+11:00 - 14:00
+Zondag	Gesloten              
+ Openingstijden;         
+              
+  Autoservice Felix            	
+              
+              
+               
+              
+          
+            </h3>
+          </div>
+        </div>
+
+        <div class="services__single-serv">
+          <div class="services__user-img-cntr">
+            <h3 class="services__single-serv-descr"></h3>
+          </div>
+        </div>
+
+        <div class="services__single-serv">
+          <div class="services__user-img-cntr">
+            <h3 class="services__single-serv-descr"></h3>
+          </div>
+        </div>
+        <body>
+          <form action="mailto" method="post" enctype="text/plain">
+              FirstName:<input type="text" name="FirstName">
+              Email:<input type="text" name="Email">
+              <input type="submit" name="submit" value="Submit">
+          </form>
+      
+      </body>
+      
+      </html>
+      </div>
+    </section>
+    <section class="contact">
+      <div class="contact__text-ctnr">
+        <h2 class="contact__title">Contact</h2>
+        <span class="contact__detail"> 010-592 3265</span>
+        <span class="contact__detail">Adres; Industrieweg nr 16-C   </span>
+        <span class="contact__detail">3144-CH Maassluis </span>
+      </div>
+    </section>
+    <script>const btnHamburger = document.querySelector('.hamburger')
+
+const hamburgerBtnAnimation = (isActive) => {
+  isActive ? console.log('Step 3: Active') : console.log('Step 3: Not active')
+
+  const lineTop = document.querySelector('.hamburger__line-top')
+  const lineMid = document.querySelector('.hamburger__line-mid')
+  const lineBot = document.querySelector('.hamburger__line-bot')
+
+  lineTop.classList.toggle('hamburger__line-top--active')
+  lineMid.classList.toggle('hamburger__line-mid--active')
+  lineBot.classList.toggle('hamburger__line-bot--active')
+}
+
+const openMobileMenuHandler = () => {
+  const mobileMenu = document.querySelector('.mobile-menu')
+  mobileMenu.classList.toggle('mobile-menu--active')
+
+  const isMobileMenuActive = mobileMenu
+    .getAttribute('class')
+    .includes('mobile-menu--active')
+  return isMobileMenuActive
+}
+
+const mobileMenuHandler = () => {
+  openMobileMenuHandler()
+  hamburgerBtnAnimation(openMobileMenuHandler())
+}
+
+btnHamburger.addEventListener('click', mobileMenuHandler)
+</script>
+  </body>
+</html>
